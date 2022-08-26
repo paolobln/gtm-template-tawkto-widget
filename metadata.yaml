@@ -1,0 +1,6 @@
+homepage: "https://www.paolobietolini.xyz"
+documentation: "https://www.paolobietolini.xyz/documentation"
+versions:
+  # Latest version
+  - sha: 823cb28b88c0680c1f2f4eb2853f35561d76ce44
+    changeNotes: Initial release.
