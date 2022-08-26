@@ -2,5 +2,8 @@ homepage: "https://www.paolobietolini.xyz"
 documentation: "https://www.paolobietolini.xyz/documentation"
 versions:
   # Latest version
+  - sha: e8083e8001c2d4971ee831e44690adb8261c2c95
+    changeNotes: dataLayer event added.
+  # Older versions
   - sha: 823cb28b88c0680c1f2f4eb2853f35561d76ce44
     changeNotes: Initial release.
