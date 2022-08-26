@@ -81,26 +81,22 @@ let tawkToEvent;
 
 const onSuccess = () => {
   log('Tawk.to: Script loaded successfully.');
-  dataLayerPush({event: 'tawk.to',
-                 tawktoID: inputId,
-                 tawktoStatus: 'Script loaded successfully.'
-                });
   data.gtmOnSuccess();
 };
 
 // If the script fails to load, log a message and signal failure
 const onFailure = () => {
   log('Tawk.to: Script load failed.');
-  dataLayerPush({event: 'tawk.to',
-                 tawktoID: inputId,
-                 tawktoStatus: 'Script load failed.'
-                });
   data.gtmOnFailure();
 };
 
+ dataLayerPush({event: 'tawk.to',
+                 tawktoID: inputId,
+                 tawktoStatus: onSuccess ? 'Script loaded successfully.' : 'Script load failed.'
+                });
 
 injectScript(src, onSuccess, onFailure,'tawkto');
-// Esegui una chiamata a data.gtmOnSuccess al completamento del tag.
+
 data.gtmOnSuccess();
 
 
