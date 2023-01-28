@@ -39,4 +39,4 @@ This template allows you to easily integrate Tawk.to with Google Tag Manager (GT
 
 ## Support
 
-If you have any issues or questions please open an issue on the [GitHub repository](https://github.com/paolobtl/gtm-tawkto-template) or contact me at paolobietolini.xyz.
+If you have any issues or questions please open an issue on the [GitHub repository](https://github.com/paolobtl/gtm-template-tawkto-widget) or contact me at paolobietolini.xyz.
