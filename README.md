@@ -13,7 +13,7 @@ This template allows you to easily integrate Tawk.to with Google Tag Manager (GT
 ## Features
 
 -   Automatically loads the Tawk.to script on your website.
--   Allows you to track when the script has loaded successfully or failed to load.
+-   Allows you to track when the script has loaded successfully or failed to load pushind events into the dataLayer.
 -   Option to enable debug mode for logging messages to the console.
 
 ## Change Log
@@ -39,4 +39,4 @@ This template allows you to easily integrate Tawk.to with Google Tag Manager (GT
 
 ## Support
 
-If you have any issues or questions please open an issue on the [GitHub repository](https://github.com/paolobietolini/gtm-tawkto-template) or contact me at paolobietolini.xyz.
+If you have any issues or questions please open an issue on the [GitHub repository](https://github.com/paolobtl/gtm-tawkto-template) or contact me at paolobietolini.xyz.
