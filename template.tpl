@@ -64,6 +64,7 @@ ___TEMPLATE_PARAMETERS___
 
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
+// Importing required APIs
 const injectScript = require('injectScript');
 const getTimestampMillis = require('getTimestampMillis');
 const logToConsole = require('logToConsole');
@@ -72,30 +73,49 @@ const dataLayerPush = createQueue('dataLayer');
 const setInWindow = require('setInWindow');
 const callInWindow = require('callInWindow');
 
+// Getting the input ID
 const inputId = data.inputId;
-let Tawk_API = setInWindow('Tawk_API', {}, false);
-let Tawk_LoadStart = getTimestampMillis();
-let src = 'https://embed.tawk.to/' + inputId;
+
+// Set the Tawk_API object
+const Tawk_API = setInWindow('Tawk_API', {}, false);
+
+// Getting the current timestamp in milli-seconds
+const timestamp = getTimestampMillis();
+
+// Constructing the script source URL
+const src = 'https://embed.tawk.to/' + inputId;
+
+// Logging function that logs to the console if debug is true, else does nothing
 const log = data.debug ? logToConsole : (() => {});
 
+// Function to push events to the data layer
+const eventPush = function(event) {
+  dataLayerPush({
+    event: 'tawk.to',
+    tawkto: {
+      event: event,
+      id: inputId,
+      timestamp: timestamp
+    }
+  });
+};
+
+// Success callback function that logs a message and calls gtmOnSuccess
 const onSuccess = () => {
   log('Tawk.to: Script loaded successfully.');
   data.gtmOnSuccess();
 };
+
+// Failure callback function that logs a message and calls gtmOnFailure
 const onFailure = () => {
   log('Tawk.to: Script load failed.');
   data.gtmOnFailure();
 };
 
-dataLayerPush({
-  event: 'tawk.to',
-  tawkto: {
-    event: onSuccess ? 'script_loaded' : 'script_load_failed',
-    timestamp: Tawk_LoadStart,
-    id: inputId,
-  }
-});
+// Pushing the event to the data layer, depending on the success/failure of the script load
+eventPush(onSuccess ? 'script_loaded' : 'script_failed');
 
+// Injecting the script and passing the success and failure callbacks
 injectScript(src, onSuccess, onFailure, 'tawkto');
 
 
@@ -238,6 +258,279 @@ ___WEB_PERMISSIONS___
                     "boolean": true
                   }
                 ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "Tawk_API.getStatus"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "Tawk_API.onBeforeLoad"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "Tawk_API.onOfflineSubmit"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "Tawk_API.onLoad"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "Tawk_API.onPrechatSubmit"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "Tawk_API.onChatMinimized"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "Tawk_API.onChatMaximized"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
               }
             ]
           }
@@ -255,6 +548,7 @@ ___WEB_PERMISSIONS___
 ___TESTS___
 
 scenarios: []
+setup: ''
 
 
 ___NOTES___
