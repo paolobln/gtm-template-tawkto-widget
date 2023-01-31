@@ -50,17 +50,14 @@ ___TEMPLATE_PARAMETERS___
         "type": "NON_EMPTY"
       }
     ],
-    "alwaysInSummary": true,
-    "help": "Add your tawk.to Account Id/Widget Id",
-    "valueHint": "00000cad00b00a00d00ccdba/1ab2aa1ab"
+    "alwaysInSummary": true
   },
   {
     "type": "CHECKBOX",
     "name": "debug",
     "checkboxText": "Debug",
     "simpleValueType": true,
-    "alwaysInSummary": true,
-    "help": "When ticked, logs messages in the console related to the loading of the script"
+    "alwaysInSummary": true
   }
 ]
 
@@ -72,49 +69,34 @@ const getTimestampMillis = require('getTimestampMillis');
 const logToConsole = require('logToConsole');
 const createQueue = require('createQueue');
 const dataLayerPush = createQueue('dataLayer');
-const encodeUriComponent = require('encodeUriComponent');
+const setInWindow = require('setInWindow');
+const callInWindow = require('callInWindow');
 
-// Check if the debug mode is on
+const inputId = data.inputId;
+let Tawk_API = setInWindow('Tawk_API', {}, false);
+let Tawk_LoadStart = getTimestampMillis();
+let src = 'https://embed.tawk.to/' + inputId;
 const log = data.debug ? logToConsole : (() => {});
 
-// Get the inputId from the data object
-const inputId = data.inputId;
-
-// Split the inputId by '/' to separate the accountId and widgetId
-const inputIdParts = inputId.split('/');
-const encodedInputId = encodeUriComponent(inputIdParts[0]) + '/' + encodeUriComponent(inputIdParts[1]);
-
-let src = 'https://embed.tawk.to/' + encodedInputId;
-
-// Initialize Tawk_API if it is not already defined
-let Tawk_API;
-Tawk_API = Tawk_API || {};
-
-// Get the start time of the script load
-let Tawk_LoadStart = getTimestampMillis();
-
-// Define the success callback function
 const onSuccess = () => {
-  dataLayerPush({event: 'tawk.to',
-                 tawktoID: inputId,
-                 tawktoStatus: 'Script loaded successfully.'
-                });
   log('Tawk.to: Script loaded successfully.');
   data.gtmOnSuccess();
 };
-
-// Define the failure callback function
 const onFailure = () => {
-  dataLayerPush({event: 'tawk.to',
-                 tawktoID: inputId,
-                 tawktoStatus: 'Script load failed.'
-                });
   log('Tawk.to: Script load failed.');
   data.gtmOnFailure();
 };
 
-// Use the injectScript function to load the Tawk.to script
-injectScript(src, onSuccess, onFailure,'tawkto');
+dataLayerPush({
+  event: 'tawk.to',
+  tawkto: {
+    event: onSuccess ? 'script_loaded' : 'script_load_failed',
+    timestamp: Tawk_LoadStart,
+    id: inputId,
+  }
+});
+
+injectScript(src, onSuccess, onFailure, 'tawkto');
 
 
 ___WEB_PERMISSIONS___
@@ -203,6 +185,45 @@ ___WEB_PERMISSIONS___
                   {
                     "type": 1,
                     "string": "dataLayer"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  },
+                  {
+                    "type": 1,
+                    "string": "execute"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "Tawk_API"
                   },
                   {
                     "type": 8,
