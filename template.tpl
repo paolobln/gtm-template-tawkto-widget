@@ -72,6 +72,7 @@ const createQueue = require('createQueue');
 const dataLayerPush = createQueue('dataLayer');
 const setInWindow = require('setInWindow');
 const callInWindow = require('callInWindow');
+const encodeUriComponent = require('encodeUriComponent');
 
 // Getting the input ID
 const inputId = data.inputId;
@@ -82,8 +83,11 @@ const Tawk_API = setInWindow('Tawk_API', {}, false);
 // Getting the current timestamp in milli-seconds
 const timestamp = getTimestampMillis();
 
-// Constructing the script source URL
-const src = 'https://embed.tawk.to/' + inputId;
+// Split the inputId by '/' to separate the accountId and widgetId
+const inputIdParts = inputId.split('/');
+const encodedInputId = encodeUriComponent(inputIdParts[0]) + '/' + encodeUriComponent(inputIdParts[1]);
+
+let src = 'https://embed.tawk.to/' + encodedInputId;
 
 // Logging function that logs to the console if debug is true, else does nothing
 const log = data.debug ? logToConsole : (() => {});
