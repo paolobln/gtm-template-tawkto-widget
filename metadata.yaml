@@ -2,9 +2,11 @@ homepage: "https://www.paolobietolini.xyz"
 documentation: "https://www.paolobietolini.xyz/documentation"
 versions:
   # Latest version
+  - sha: 134977f6c7add1d68b406fa9f107fdcd69757e3c
+  - changeNotes: Fixed event handling
+  # Older versions
   - sha: 8a0a2bc71523aefa6de77aeec709e6884f60f79d
   - changeNotes: use encodeUriComponent as it was removed.
-  # Older versions
   - sha: 3326b584df3f3a6073ff7b90f87506f09ae5e81b
   - changeNotes: Add comments and refactor.
   - sha: aa9f0e8a2d38f13a8cf24a970d7d5bdd76effa41
