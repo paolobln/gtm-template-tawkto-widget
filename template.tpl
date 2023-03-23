@@ -1,12 +1,4 @@
-﻿___TERMS_OF_SERVICE___
-
-By creating or modifying this file you agree to Google Tag Manager's Community
-Template Gallery Developer Terms of Service available at
-https://developers.google.com/tag-manager/gallery-tos (or such other URL as
-Google may provide), as modified from time to time.
-
-
-___INFO___
+﻿___INFO___
 
 {
   "type": "TAG",
@@ -107,17 +99,16 @@ const eventPush = function(event) {
 // Success callback function that logs a message and calls gtmOnSuccess
 const onSuccess = () => {
   log('Tawk.to: Script loaded successfully.');
+  eventPush('script_loaded');
   data.gtmOnSuccess();
 };
 
 // Failure callback function that logs a message and calls gtmOnFailure
 const onFailure = () => {
   log('Tawk.to: Script load failed.');
+  eventPush('script_failed');
   data.gtmOnFailure();
 };
-
-// Pushing the event to the data layer, depending on the success/failure of the script load
-eventPush(onSuccess ? 'script_loaded' : 'script_failed');
 
 // Injecting the script and passing the success and failure callbacks
 injectScript(src, onSuccess, onFailure, 'tawkto');
